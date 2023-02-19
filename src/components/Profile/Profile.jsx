@@ -1,30 +1,49 @@
-import user from 'components/Profile/user.json';
+import PropTypes from 'prop-types';
+import {
+  ProfileContainer,
+  Description,
+  Avatar,
+  Username,
+  ListStats,
+  ValueStats,
+} from './Profile.styled';
 
-export const Profile = () => {
+export const Profile = ({ avatar, username, tag, location, stats }) => {
   return (
-    <div class="profile">
-      <div class="description">
-        <img src={user.avatar} width={50} alt="User avatar" class="avatar" />
-        <p class="name">{user.username}</p>
-        <p class="tag">@{user.tag}</p>
-        <p class="location">{user.location}</p>
-      </div>
+    <ProfileContainer>
+      <Description>
+        <Avatar src={avatar} width={200} alt="User avatar" />
+        <Username>{username}</Username>
+        <p>@{tag}</p>
+        <p>{location}</p>
+      </Description>
 
-      <ul class="stats">
+      <ListStats>
         <li>
-          <span class="label">Followers: </span>
-          <span class="quantity">{user.stats.followers}</span>
+          <span>Followers: </span>
+          <ValueStats>{stats.followers}</ValueStats>
         </li>
         <li>
-          <span class="label">Views: </span>
-          <span class="quantity">{user.stats.views}</span>
+          <span>Views: </span>
+          <ValueStats>{stats.views}</ValueStats>
         </li>
         <li>
-          <span class="label">Likes: </span>
-          <span class="quantity">{user.stats.likes}</span>
+          <span>Likes: </span>
+          <ValueStats>{stats.likes}</ValueStats>
         </li>
-      </ul>
-    </div>
+      </ListStats>
+    </ProfileContainer>
   );
-  //   console.log(user.username);
+};
+
+Profile.propTypes = {
+  avatar: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  stats: PropTypes.shape({
+    followers: PropTypes.number.isRequired,
+    views: PropTypes.number.isRequired,
+    likes: PropTypes.number.isRequired,
+  }),
 };
